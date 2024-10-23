@@ -44,7 +44,7 @@ class HotelController extends Controller
         $newHotel->description = $request->description;
 
         // Save the image to the storage directory
-        $imageName = time() . '_' . $request->image->getClientOriginalExtension();
+        $imageName = time() . '_' . $request->image->getClientOriginalName();
         $request->image->move(public_path('uploads'), $imageName);
         $newHotel->image = '/uploads/' . $imageName;
 

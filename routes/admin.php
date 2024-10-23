@@ -33,3 +33,4 @@ Route::get('/rooms', [RoomController::class, 'index'])
     Route::post('/submit/room', [RoomController::class, 'submit'])
     ->name('submit.room');
     Route::delete('/rooms/delete/{id}', [RoomController::class, 'destroy'])->name('delete.room');
+    Route::post('/room/{id}/store-image', [RoomController::class, 'storeImage'])->name('admin.store.image');

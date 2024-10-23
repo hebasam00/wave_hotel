@@ -1,23 +1,27 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\RoomImageController;
+use App\Http\Controllers\ContactController;
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index'); // دالة العرض
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store'); // دالة التخزين
+
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('frontend.index');
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,126 +34,30 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/home', function () {
-    return view('home');
-});
-
-// Hotels 5 star ////
-
-Route::get('/hotel5', function () {
-    return view('hotel5star');
-})->name('hotel5');
-
-//hotels 4 star //
-
-Route::get('/hotel4', function () {
-    return view('hotel4star');
-})->name('hotel4');
-
-//login //
+// Routes for rooms and images
+Route::get('/admin/rooms/{roomId}/images', [RoomImageController::class, 'index'])->name('room.images.index');
+Route::get('/admin/rooms/{roomId}/images/create', [RoomImageController::class, 'create'])->name('room.images.create');
+Route::post('/admin/rooms/images/store', [RoomImageController::class, 'store'])->name('room.images.store');
+Route::delete('/admin/rooms/images/{id}', [RoomImageController::class, 'destroy'])->name('room.images.destroy');
+// Route to store the uploaded image
+Route::post('admin/room-images/store', [RoomImageController::class, 'store'])->name('admin.store.image');
 
 
-// navbar //
+Route::get('/rooms',[FrontController::class,'rooms'])->name('rooms');
 
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
+Route::get('/about', function () {
+    return view('frontend.about');
+})->name('about');
+Route::get('/contact', function () {
+    return view('frontend.contact');
+})->name('contact');
+//************ROOMS**************/
+Route::get('/single/room', [FrontController::class,'singleRooms'])->name('single.room');
 
-Route::get('/hotels', function () {
-    return view('hotels');
-})->name('hotels');
+Route::get('/double/room', [FrontController::class,'doubleRooms'])->name('double.room');
 
-Route::get('/yachts', function () {
-    return view('yachts');
-})->name('yachts');
+Route::get('/family/room', [FrontController::class,'familyRooms'])->name('family.room');
 
-Route::get('/restaurants', function () {
-    return view('restaurants');
-})->name('restaurants');
-
-Route::get('/car-rentals', function () {
-    return view('car-rentals');
-})->name('car-rentals');
-
-Route::get('/things-rentals', function () {
-    return view('things-rentals');
-})->name('things-rentals');
-
-Route::get('/ayla-rentals', function () {
-    return view('ayla-rentals');
-})->name('ayla-rentals');
-
-Route::get('/Movenpick', function () {
-    return view('Movenpick');
-})->name('Movenpick');
-
-Route::get('/DoubleTreebyHiltonAqaba', function () {
-    return view('DoubleTreebyHiltonAqaba');
-})->name('DoubleTreebyHiltonAqaba');
-
-Route::get('/HyattRegencyAqaba', function () {
-    return view('HyattRegencyAqaba');
-})->name('HyattRegencyAqaba');
-
-
-Route::get('/lacosta', function () {
-    return view('lacosta');
-})->name('lacosta');
-
-Route::get('/oryx', function () {
-    return view('oryx');
-})->name('oryx');
-
-Route::get('/luxuryyachts', function () {
-    return view('luxuryyachts');
-})->name('luxuryyachts');
-
-
-Route::get('/speedyachts', function () {
-    return view('speedyachts');
-})->name('speedyachts');
-
-Route::get('/FineDining', function () {
-    return view('FineDining');
-})->name('fine');
-
-Route::get('/casual', function () {
-    return view('CasualDining');
-})->name('casual');
-
-Route::get('/economycar', function () {
-    return view('economycar');
-})->name('economycar');
-
-
-
-
-Route::get('/ScubaDiving', function () {
-    return view('ScubaDiving');
-})->name('ScubaDiving');
-
-Route::get('/DesertSafari', function () {
-    return view('DesertSafari');
-})->name('DesertSafari');
-
-
-Route::get('/AylaGolfClub', function () {
-    return view('AylaGolfClub');
-})->name('AylaGolfClub');
-
-
-Route::get('/AylaYachtClub', function () {
-    return view('AylaYachtClub');
-})->name('AylaYachtClub');
-
-Route::get('/luxurycar', function () {
-    return view('luxurycar');
-})->name('luxurycar');
-
-
-
+Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact');
 

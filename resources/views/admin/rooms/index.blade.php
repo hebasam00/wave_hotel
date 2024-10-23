@@ -37,6 +37,9 @@
                                                 <td>
                                                     <a href="{{ route('admin.update.room', ['id' => $room->id]) }}" class="btn btn-warning">Update</a>
                                                     <a href="{{ route('admin.delete.room', ['id' => $room->id]) }}" class="btn btn-danger delete-item">Delete</a>
+                                                    <a href="{{ route('room.images.index', ['roomId' => $room->id]) }}" class="btn btn-primary">Images</a>
+
+
                                                 </td>
                                             </tr>
                                         @endforeach

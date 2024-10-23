@@ -16,12 +16,21 @@
                     </div>
 
 
+
                     <div class="mb-3">
-                        <label class="form-label">Room Type</label>
-                        <div class="input-group input-group-merge">
-                            <input type="text" class="form-control" name="room_type">
-                        </div>
+                        <label for="exampleFormControlSelect1" class="form-label">Room Type</label>
+                        <select name="room_type" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                            <optionn value="Available" selected>Select Type</optionn>
+                            <option value="single">Single Room</option>
+                            <option value="double">Double Room</option>
+                            <option value="family">Family Room</option>
+
+
+                        </select>
                     </div>
+
+
+
                     <div class="mb-3">
                         <label class="form-label">Price</label>
                         <div class="input-group input-group-merge">
