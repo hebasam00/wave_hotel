@@ -9,7 +9,7 @@
         <div class="card-body">
             <form method="POST" action="{{ route('admin.store.image') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="room_id" value="{{ $roomId }}"> <!-- مخفي لتخزين ID الغرفة -->
+                <input type="hidden" name="room_id" value="{{ $roomId }}">
 
                 <div class="mb-3">
                     <label class="form-label">Image</label>

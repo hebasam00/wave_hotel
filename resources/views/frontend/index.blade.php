@@ -1,17 +1,111 @@
 @extends('frontend.master')
 
 @section('content')
+    <!--------------------------------- WELCOME AND CHECK AVAILABILITY   ------------------------------------->
     <section class="site-hero overlay" style="background-image: url({{ asset('/img/pexels-ken123films-635041.jpg') }})"
         data-stellar-background-ratio="0.5">
         <div class="container">
-            <div class="row site-hero-inner justify-content-center align-items-center">
-                <div class="col-md-10 text-center" data-aos="fade-up">
+            <div class="row site-hero-inner justify-content-between align-items-center">
+                <div class="col-md-6 text-center" data-aos="fade-up">
                     <span class="custom-caption text-uppercase text-white d-block mb-3">
-                        Welcome To <span style="color: orange;">wave</span> Hotel
+                        A Best Place To Stay
                     </span>
                     <span class="fa fa-star text-primary"></span>
-                    <h1 class="heading">A Best Place To Stay</h1>
+                    <h1 class="heading" style="font-size: 2.5rem; font-weight: bold;">
+                        Welcome To <span style="color: rgb(245, 240, 220);">Wave</span> Hotel
+                    </h1>
                 </div>
+
+                <!-- Availability Box -->
+                <div class="container mt-5">
+                    <div class="col-md-5">
+                        <div id="availabilityBox" class="alert"
+                             style="background-color: #421900; border: 1px solid #361d05; border-radius: 8px; padding: 15px;">
+                            <form id="bookingForm" action="{{ route('booking.store') }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="checkin_date" class="font-weight-bold text-white">Check In</label>
+                                        <input type="date" name="checkin_date" class="form-control small-input" required>
+                                    </div>
+
+                                    <div class="col-md-6 mb-2">
+                                        <label for="checkout_date" class="font-weight-bold text-white">Check Out</label>
+                                        <input type="date" name="checkout_date" class="form-control small-input" required>
+                                    </div>
+
+                                    <div class="col-md-6 mb-2">
+                                        <label for="adults" class="font-weight-bold text-white">Adults</label>
+                                        <select id="adults" name="adults" class="form-control small-input" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4+</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-2">
+                                        <label for="children" class="font-weight-bold text-white">Children</label>
+                                        <select id="children" name="children" class="form-control small-input" required>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4+</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12 mb-2">
+                                        <label for="room_type" class="font-weight-bold text-white">Room Type</label>
+                                        <select id="room_type" name="room_type" class="form-control small-input" required>
+                                            <option value="single">Single Room</option>
+                                            <option value="double">Double Room</option>
+                                            <option value="family">Family Room</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12 mb-2">
+                                        <label for="full_name" class="font-weight-bold text-white">Full Name</label>
+                                        <input type="text" name="full_name" class="form-control small-input" required>
+                                    </div>
+
+                                    <div class="col-md-12 mb-2">
+                                        <label for="email" class="font-weight-bold text-white">Email</label>
+                                        <input type="email" name="email" class="form-control small-input" required>
+                                    </div>
+
+                                    <div class="col-md-12 mb-2">
+                                        <label for="phone" class="font-weight-bold text-white">Phone</label>
+                                        <input type="tel" name="phone" class="form-control small-input" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block text-white"
+                                        style="background-color: #992828; border: none; border-radius: 5px;">
+                                    تحقق من التوافر
+                                </button>
+                            </form>
+
+                            <!-- عرض الرسالة بعد الحجز -->
+                            {{-- @if(session('message'))
+                                <div class="alert alert-success mt-3" role="alert">
+                                    {{ session('message') }}
+                                </div>
+                            @endif
+
+                            @if($errors->any())
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif --}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End Availability Box -->
             </div>
         </div>
 
@@ -21,219 +115,192 @@
             </div>
         </a>
     </section>
-    <!-- END section -->
+    <style>
+        /* CSS لتصغير حجم الحقول وتنسيقها */
+        .small-input {
+            max-width: 100%; /* اجعل الحقول مناسبة للحجم المطلوب */
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif; /* تغيير نوع الخط */
+            font-size: 1rem; /* تغيير حجم الخط */
+            color: #000000; /* لون النص داخل الحقول */
+            background-color: #ffffff; /* لون الخلفية */
+        }
 
-    <section class="section bg-light pb-0">
-        <div class="container">
+        /* تضييق الحاوية لتنسيق أفضل */
+        #availabilityBox {
+            max-width: 400px; /* تم تصغير العرض */
+            padding: 15px; /* تم تقليل الحواف الداخلية */
+            margin: auto; /* مركزية */
+        }
 
-            <div class="row check-availabilty" id="next">
-                <div class="block-32" data-aos="fade-up" data-aos-offset="-200">
+        /* جعل الخط في العنوان أصغر */
+        .alert-heading {
+            font-size: 1.2rem; /* حجم الخط */
+        }
+    </style>
+    <!-------------------------------- END WELCOME -------------------------------------->
 
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-                                <label for="checkin_date" class="font-weight-bold text-black">Check In</label>
-                                <div class="field-icon-wrap">
-                                    <div class="icon"><span class="icon-calendar"></span></div>
-                                    <input type="text" id="checkin_date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
-                                <label for="checkout_date" class="font-weight-bold text-black">Check Out</label>
-                                <div class="field-icon-wrap">
-                                    <div class="icon"><span class="icon-calendar"></span></div>
-                                    <input type="text" id="checkout_date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 mb-md-0 col-lg-3">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label for="adults" class="font-weight-bold text-black">Adults</label>
-                                        <div class="field-icon-wrap">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="adults" class="form-control">
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4+</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 mb-md-0">
-                                        <label for="children" class="font-weight-bold text-black">Children</label>
-                                        <div class="field-icon-wrap">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="" id="children" class="form-control">
-                                                <option value="">1</option>
-                                                <option value="">2</option>
-                                                <option value="">3</option>
-                                                <option value="">4+</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3 align-self-end">
-                                <button class="btn btn-primary btn-block text-white">Check Availabilty</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-light">
+    <!----------------------------------- ABOUT ----------------------------------------->
+    <section class="py-5 bg-light" id="next">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-7 ml-auto order-lg-2 position-relative mb-5" data-aos="fade-up">
                     <figure class="img-absolute">
-                        <img src="{{ asset('frontend/images') }}//food-1.jpg" alt="Image" class="img-fluid">
+                        <img src="{{ asset('frontend/images/food-1.jpg') }}" alt="Food Image" class="img-fluid">
                     </figure>
-                    <img src="{{ asset('frontend/images') }}//img_1.jpg" alt="Image" class="img-fluid rounded">
+                    <img src="{{ asset('frontend/images/img_1.jpg') }}" alt="Image" class="img-fluid rounded">
                 </div>
                 <div class="col-md-12 col-lg-4 order-lg-1" data-aos="fade-up">
                     <h2 class="heading">Welcome!</h2>
-                    <p class="mb-4">Enjoy a Luxurious Stay and Unmatched Comfort Discover luxury and elegance at our
-                        distinguished hotel. Book now and indulge in an exceptional stay in the heart of the city, with
-                        outstanding services and world-class facilities to meet all your needs.</p>
-
+                    <p class="mb-4">Located in the heart of the tourist area, our hotel combines modern elegance with
+                        authentic hospitality. Whether you're seeking a peaceful retreat or an adventure-filled trip, Wave
+                        offers everything you need for an unforgettable stay.</p>
                 </div>
-
             </div>
         </div>
     </section>
+    <!--------------------------------- END ABOUT ---------------------------------------->
 
+
+
+
+    <!---------------------------------- ROOMS ------------------------------------------->
     <section class="section">
         <div class="container">
             <div class="row justify-content-center text-center mb-5">
                 <div class="col-md-7">
-                    <h2 class="heading" data-aos="fade-up">Rooms &amp; Suites</h2>
-
+                    <h2 class="heading" data-aos="fade-up">Rooms </h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                    <a href="{{route('single.room')}}" class="room">
-                        <figure class="img-wrap">
-                            <img src="{{ asset('frontend/images') }}//img_1.jpg" alt="Free website template"
-                                class="img-fluid mb-3">
+                <!-- Single Room -->
+                <div class="col-md-12 col-lg-12 mb-4" data-aos="fade-up">
+                    <div class="card room-card text-center" style="position: relative; overflow: hidden; border-radius: 15px;">
+                        <figure class="img-wrap" style="margin: 0;">
+                            <img src="{{ asset('frontend/images') }}/img_1.jpg" alt="Single Room" class="img-fluid room-image" style="width: 100%; height: 250px; object-fit: cover;">
                         </figure>
-                        <div class="p-3 text-center room-info">
-                            <h2>Single Room</h2>
+                        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);">
+                            <h2 style="color: orange;">Single Room</h2>
+                            <p>A comfortable single room, ideal for solo travelers. Offers perfect comfort and privacy.</p>
+                            <p><strong>Price: $100 per night</strong></p>
+                            <button class="btn btn-primary" style="padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; margin-top: 10px;" onclick="location.href='#next'">Check Availability</button>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                    <a href="{{route('double.room')}}" class="room">
-                        <figure class="img-wrap">
-                            <img src="{{ asset('frontend/images') }}//img_3.jpg" alt="Free website template"
-                                class="img-fluid mb-3">
+                <!-- Double Room -->
+                <div class="col-md-12 col-lg-12 mb-4" data-aos="fade-up">
+                    <div class="card room-card text-center" style="position: relative; overflow: hidden; border-radius: 15px;">
+                        <figure class="img-wrap" style="margin: 0;">
+                            <img src="{{ asset('frontend/images') }}/img_3.jpg" alt="Double Room" class="img-fluid room-image" style="width: 100%; height: 250px; object-fit: cover;">
                         </figure>
-                        <div class="p-3 text-center room-info">
-                            <h2>Double Room</h2>
+                        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);">
+                            <h2 style="color: orange;">Double Room</h2>
+                            <p>A spacious double room, perfect for couples or friends. Provides all the comforts.</p>
+                            <p><strong>Price: $150 per night</strong></p>
+                            <button class="btn btn-primary" style="padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; margin-top: 10px;" onclick="location.href='#next'">Check Availability</button>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                    <a href="{{route('family.room')}}" class="room">
-                        <figure class="img-wrap">
-                            <img src="{{ asset('frontend/images') }}//img_2.jpg" alt="Free website template"
-                                class="img-fluid mb-3">
+                <!-- Family Room -->
+                <div class="col-md-12 col-lg-12 mb-4" data-aos="fade-up">
+                    <div class="card room-card text-center" style="position: relative; overflow: hidden; border-radius: 15px;">
+                        <figure class="img-wrap" style="margin: 0;">
+                            <img src="{{ asset('frontend/images') }}/img_2.jpg" alt="Family Room" class="img-fluid room-image" style="width: 100%; height: 250px; object-fit: cover;">
                         </figure>
-                        <div class="p-3 text-center room-info">
-                            <h2>Family Room</h2>
+                        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);">
+                            <h2 style="color: orange;">Family Room</h2>
+                            <p>A comfortable family room, equipped with everything you need for the family. Ideal for longer stays.</p>
+                            <p><strong>Price: $200 per night</strong></p>
+                            <button class="btn btn-primary" style="padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; margin-top: 10px;" onclick="location.href='#next'">Check Availability</button>
                         </div>
-                    </a>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-
-
-
+    <section class="section bg-light pb-0">
+        <div class="container">
+            <div class="row check-availabilty" id="next">
+                <div class="block-32" data-aos="fade-up" data-aos-offset="-200"
+                </div>
             </div>
         </div>
     </section>
 
 
+
+
+
+    <!-------------------------------- END ROOMS ----------------------------------------->
+
+
+
+    <!---------------------------------- PHOTOS ------------------------------------------>
     <section class="section slider-section bg-light">
         <div class="container">
             <div class="row justify-content-center text-center mb-5">
                 <div class="col-md-7">
                     <h2 class="heading" data-aos="fade-up">Photos</h2>
-
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="home-slider major-caousel owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-1.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/" data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-1.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-2.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/"
-                                data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-2.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-3.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/"
-                                data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-3.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-4.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/"
-                                data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-4.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-5.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/"
-                                data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-5.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-6.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/"
-                                data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-6.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
-                        <div class="slider-item">
-                            <a href="{{ asset('frontend/images') }}//slider-7.jpg"
-                                data-fancybox="{{ asset('frontend/images') }}/"
-                                data-caption="Caption for this image"><img
-                                    src="{{ asset('frontend/images') }}//slider-7.jpg" alt="Image placeholder"
-                                    class="img-fluid"></a>
-                        </div>
+                    <div class="home-slider major-carousel owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
+                        @foreach (range(1, 7) as $number)
+                            <div class="slider-item">
+                                <a href="{{ asset('frontend/images/slider-' . $number . '.jpg') }}"
+                                    data-fancybox="{{ asset('frontend/images') }}/"
+                                    data-caption="Caption for image {{ $number }}">
+                                    <img src="{{ asset('frontend/images/slider-' . $number . '.jpg') }}"
+                                        alt="Image placeholder" class="img-fluid"
+                                        style="max-width: 100%; height: auto; border-radius: 10px;">
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                     <!-- END slider -->
                 </div>
-
             </div>
         </div>
     </section>
-    <!-- END section -->
+    <script>
+        $(document).ready(function() {
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                responsive: {
+                    0: {
+                        items: 1 // عرض صورة واحدة على الشاشات الصغيرة
+                    },
+                    600: {
+                        items: 2 // عرض صورتين على الشاشات المتوسطة
+                    },
+                    1000: {
+                        items: 3 // عرض ثلاث صور على الشاشات الكبيرة
+                    }
+                }
+            });
+        });
+    </script>
+    <!-------------------------------- END PHOTOS ---------------------------------------->
 
+
+
+
+    <!------------------------------ RESTAURANT MENU ------------------------------------->
     <section class="section bg-image overlay"
-        style="background-image: url('{{ asset('frontend/images') }}//hero_3.jpg');">
+        style="background-image: url('{{ asset('img/pexels-19x14-8480697.jpg') }}');">
         <div class="container">
             <div class="row justify-content-center text-center mb-5">
                 <div class="col-md-7">
                     <h2 class="heading text-white" data-aos="fade">Our Restaurant Menu</h2>
-
                 </div>
             </div>
             <div class="food-menu-tabs" data-aos="fade">
@@ -252,307 +319,126 @@
                     </li>
                 </ul>
                 <div class="tab-content py-5" id="myTabContent">
-
-
+                    <!-- Mains Tab -->
                     <div class="tab-pane fade show active text-left" id="mains" role="tabpanel"
                         aria-labelledby="mains-tab">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="food-menu mb-5">
                                     <span class="d-block text-primary h4 mb-3">$20.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Murgh Tikka
-                                            Masala</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <h3 class="text-white"><a href="#" class="text-white">Murgh Tikka Masala</a>
+                                    </h3>
+                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far from
+                                        the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$35.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Fish Moilee</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$15.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Safed Gosht</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
+                                <!-- Add more food items here -->
                             </div>
                             <div class="col-md-6">
                                 <div class="food-menu mb-5">
                                     <span class="d-block text-primary h4 mb-3">$10.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">French Toast
-                                            Combo</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <h3 class="text-white"><a href="#" class="text-white">French Toast Combo</a>
+                                    </h3>
+                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far from
+                                        the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$8.35</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Vegie Omelet</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$22.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Chorizo &amp; Egg
-                                            Omelet</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
+                                <!-- Add more food items here -->
                             </div>
                         </div>
+                    </div>
 
-
-                    </div> <!-- .tab-pane -->
-
+                    <!-- Desserts Tab -->
                     <div class="tab-pane fade text-left" id="desserts" role="tabpanel" aria-labelledby="desserts-tab">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="food-menu mb-5">
                                     <span class="d-block text-primary h4 mb-3">$11.00</span>
                                     <h3 class="text-white"><a href="#" class="text-white">Banana Split</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far from
+                                        the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$72.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Sticky Toffee
-                                            Pudding</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$26.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Pecan</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
+                                <!-- Add more dessert items here -->
                             </div>
                             <div class="col-md-6">
                                 <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$42.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Apple Strudel</a>
-                                    </h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
-                                <div class="food-menu mb-5">
                                     <span class="d-block text-primary h4 mb-3">$7.35</span>
                                     <h3 class="text-white"><a href="#" class="text-white">Pancakes</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far from
+                                        the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$22.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Ice Cream Sundae</a>
-                                    </h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
+                                <!-- Add more dessert items here -->
                             </div>
                         </div>
-                    </div> <!-- .tab-pane -->
+                    </div>
+
+                    <!-- Drinks Tab -->
                     <div class="tab-pane fade text-left" id="drinks" role="tabpanel" aria-labelledby="drinks-tab">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="food-menu mb-5">
                                     <span class="d-block text-primary h4 mb-3">$32.00</span>
                                     <h3 class="text-white"><a href="#" class="text-white">Spring Water</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far from
+                                        the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$14.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Coke, Diet Coke, Coke
-                                            Zero</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$93.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Orange Fanta</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
+                                <!-- Add more drink items here -->
                             </div>
                             <div class="col-md-6">
                                 <div class="food-menu mb-5">
                                     <span class="d-block text-primary h4 mb-3">$18.00</span>
                                     <h3 class="text-white"><a href="#" class="text-white">Lemonade, Lemon
                                             Squash</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far from
+                                        the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$38.35</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Sparkling Mineral
-                                            Water</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
-                                <div class="food-menu mb-5">
-                                    <span class="d-block text-primary h4 mb-3">$69.00</span>
-                                    <h3 class="text-white"><a href="#" class="text-white">Lemon, Lime &amp;
-                                            Bitters</a></h3>
-                                    <p class="text-white text-opacity-7">Far far away, behind the word mountains, far
-                                        from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                </div>
+                                <!-- Add more drink items here -->
                             </div>
                         </div>
-                    </div> <!-- .tab-pane -->
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <!---------------------------- END RESTAURANT MENU ----------------------------------->
 
-    <!-- END section -->
-    <section class="section testimonial-section">
+
+
+
+    <!-------------------------------- CONTACT US ---------------------------------------->
+    <section class="section contact-section" id="next">
         <div class="container">
-            <div class="row justify-content-center text-center mb-5">
-                <div class="col-md-7">
-                    <h2 class="heading" data-aos="fade-up">People Says</h2>
-                </div>
-            </div>
+            <h2 class="text-center" style="margin-bottom: 30px;">Contact us</h2> <!-- Section Title -->
             <div class="row">
-                <div class="js-carousel-2 owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
-
-                    <div class="testimonial text-center slider-item">
-                        <div class="author-image mb-3">
-                            <img src="{{ asset('frontend/images') }}//person_1.jpg" alt="Image placeholder"
-                                class="rounded-circle mx-auto">
+                <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf <!-- Secure the form using CSRF -->
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" name="name" id="name" class="form-control"
+                                placeholder="Enter your name" required>
                         </div>
-                        <blockquote>
 
-                            <p>&ldquo;A small river named Duden flows by their place and supplies it with the necessary
-                                regelialia. It is a paradisematic country, in which roasted parts of sentences fly into
-                                your mouth.&rdquo;</p>
-                        </blockquote>
-                        <p><em>&mdash; Jean Smith</em></p>
-                    </div>
-
-                    <div class="testimonial text-center slider-item">
-                        <div class="author-image mb-3">
-                            <img src="{{ asset('frontend/images') }}//person_2.jpg" alt="Image placeholder"
-                                class="rounded-circle mx-auto">
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" id="email" class="form-control"
+                                placeholder="Enter your email" required>
                         </div>
-                        <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
-                                almost unorthographic life One day however a small line of blind text by the name of
-                                Lorem Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
-                        </blockquote>
-                        <p><em>&mdash; John Doe</em></p>
-                    </div>
 
-                    <div class="testimonial text-center slider-item">
-                        <div class="author-image mb-3">
-                            <img src="{{ asset('frontend/images') }}//person_3.jpg" alt="Image placeholder"
-                                class="rounded-circle mx-auto">
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea name="message" id="message" class="form-control" placeholder="Enter your message" rows="6"
+                                required></textarea>
                         </div>
-                        <blockquote>
 
-                            <p>&ldquo;When she reached the first hills of the Italic Mountains, she had a last view back
-                                on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
-                                subline of her own road, the Line Lane.&rdquo;</p>
-                        </blockquote>
-                        <p><em>&mdash; John Doe</em></p>
-                    </div>
-
-
-                    <div class="testimonial text-center slider-item">
-                        <div class="author-image mb-3">
-                            <img src="{{ asset('frontend/images') }}//person_1.jpg" alt="Image placeholder"
-                                class="rounded-circle mx-auto">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
                         </div>
-                        <blockquote>
-
-                            <p>&ldquo;A small river named Duden flows by their place and supplies it with the necessary
-                                regelialia. It is a paradisematic country, in which roasted parts of sentences fly into
-                                your mouth.&rdquo;</p>
-                        </blockquote>
-                        <p><em>&mdash; Jean Smith</em></p>
-                    </div>
-
-                    <div class="testimonial text-center slider-item">
-                        <div class="author-image mb-3">
-                            <img src="{{ asset('frontend/images') }}//person_2.jpg" alt="Image placeholder"
-                                class="rounded-circle mx-auto">
-                        </div>
-                        <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
-                                almost unorthographic life One day however a small line of blind text by the name of
-                                Lorem Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
-                        </blockquote>
-                        <p><em>&mdash; John Doe</em></p>
-                    </div>
-
-                    <div class="testimonial text-center slider-item">
-                        <div class="author-image mb-3">
-                            <img src="{{ asset('frontend/images') }}//person_3.jpg" alt="Image placeholder"
-                                class="rounded-circle mx-auto">
-                        </div>
-                        <blockquote>
-
-                            <p>&ldquo;When she reached the first hills of the Italic Mountains, she had a last view back
-                                on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
-                                subline of her own road, the Line Lane.&rdquo;</p>
-                        </blockquote>
-                        <p><em>&mdash; John Doe</em></p>
-                    </div>
-
+                    </form>
                 </div>
-                <!-- END slider -->
-            </div>
-
-        </div>
-    </section>
-
-
-    <section class="section blog-post-entry bg-light">
-        <div class="container">
-            <div class="row justify-content-center text-center mb-5">
-                <div class="col-md-7">
-                    <h2 class="heading" data-aos="fade-up">Events</h2>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="100">
-
-                    <div class="media media-custom d-block mb-4 h-100">
-                        <a href="#" class="mb-4 d-block"><img src="{{ asset('frontend/images') }}//img_1.jpg"
-                                alt="Image placeholder" class="img-fluid"></a>
-                        <div class="media-body">
-                            <span class="meta-post">February 26, 2018</span>
-                            <h2 class="mt-0 mb-3"><a href="#">Travel Hacks to Make Your Flight More
-                                    Comfortable</a></h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                                there live the blind texts.</p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="200">
-                    <div class="media media-custom d-block mb-4 h-100">
-                        <a href="#" class="mb-4 d-block"><img src="{{ asset('frontend/images') }}//img_2.jpg"
-                                alt="Image placeholder" class="img-fluid"></a>
-                        <div class="media-body">
-                            <span class="meta-post">February 26, 2018</span>
-                            <h2 class="mt-0 mb-3"><a href="#">5 Job Types That Aallow You To Earn As You Travel
-                                    The World</a></h2>
-                            <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large
-                                language ocean.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="300">
-                    <div class="media media-custom d-block mb-4 h-100">
-                        <a href="#" class="mb-4 d-block"><img src="{{ asset('frontend/images') }}//img_3.jpg"
-                                alt="Image placeholder" class="img-fluid"></a>
-                        <div class="media-body">
-                            <span class="meta-post">February 26, 2018</span>
-                            <h2 class="mt-0 mb-3"><a href="#">30 Great Ideas On Gifts For Travelers</a></h2>
-                            <p>A small river named Duden flows by their place and supplies it with the necessary
-                                regelialia. t is a paradisematic country, in which roasted parts of sentences.</p>
+                <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+                    <div class="row">
+                        <div class="col-md-10 ml-auto contact-info">
+                            <p><span class="d-block">Address:</span> <span>Aqaba, Jordan</span></p>
+                            <p><span class="d-block">Email:</span> <span>hepsam22@gmail.com</span></p>
                         </div>
                     </div>
                 </div>
@@ -560,18 +446,7 @@
         </div>
     </section>
 
-    <section class="section bg-image overlay"
-        style="background-image: url('{{ asset('frontend/images') }}//hero_4.jpg');">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-6 text-center mb-4 mb-md-0 text-md-left" data-aos="fade-up">
-                    <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
-                </div>
-                <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
-                    <a href="reservation.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve
-                        Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-------------------------------- CONTACT US ---------------------------------------->
+
+
 @endsection

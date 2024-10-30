@@ -46,5 +46,21 @@
                 <div data-i18n="Contact">Contact</div>
             </a>
         </li>
+
+        <!-- Users -->
+        <li class="menu-item @yield('user-active')">
+            <a href="{{ route('admin.users.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Users">Users</div>
+            </a>
+        </li>
+
+        <!-- Booking -->
+        <li class="menu-item @yield('booking-active')">
+            <a href="{{ route('admin.bookings') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div data-i18n="Bookings">Bookings</div>
+            </a>
+        </li>
     </ul>
 </aside>

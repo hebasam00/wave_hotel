@@ -6,20 +6,22 @@ use App\Models\RoomImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-
 class RoomImageController extends Controller
 {
+    //---------------------------------------- DISPLAY ROOM IMAGES -------------------------------------//
     public function index($roomId)
     {
         $roomImages = RoomImage::where('room_id', $roomId)->paginate(10);
         return view('admin.room_images.index', compact('roomImages', 'roomId'));
     }
 
+    //---------------------------------------- SHOW CREATE IMAGE FORM -------------------------------------//
     public function create($roomId)
     {
         return view('admin.room_images.create', compact('roomId'));
     }
 
+    //---------------------------------------- STORE ROOM IMAGE -------------------------------------//
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -36,40 +38,18 @@ class RoomImageController extends Controller
         $new->room_id = $request->room_id;
         $new->save();
 
-
-        // if ($request->file('image')) {
-        //     $imageName = time() . '.' . $request->image->extension();
-        //     $request->image->move(public_path('images/room_images'), $imageName);
-
-        //     RoomImage::create([
-        //         'room_id' => $validated['room_id'],
-        //         'image_path' => 'images/room_images/' . $imageName,
-        //     ]);
-
-        //     return redirect()->route('room.images.index', $validated['room_id'])->with('success', 'Image uploaded successfully');
-        // }
-
         return back()->withErrors(['image' => 'Failed to upload image']);
     }
 
+    //---------------------------------------- DELETE ROOM IMAGE -------------------------------------//
     public function destroy(string $id)
     {
         $roomImage = RoomImage::findOrFail($id);
-        if (File::exists(public_path($roomImage->image))) {
-            File::delete(public_path($roomImage->image));  // delete the old image first if exists.  // إذا كانت الصورة موجودة في المجلد التي محتويها على صورة جديدة، فإننا نحذف الصورة القديمة.  // حذف الصورة القديمة الموجودة في المجلد التي محتويها على صورة جديدة.  // حذف الصورة القديمة الموجودة في المجلد التي محتويها على صورة جديدة.  // حذف الصور
+        if (File::exists(public_path($roomImage->image_path))) {
+            File::delete(public_path($roomImage->image_path));  // Delete the old image if it exists
         }
         $roomImage->delete();
 
         return response(['status' => 'success', 'message' => 'Deleted successfully']);
     }
-    // public function destroy(string $id)
-    // {
-    //     $hotel = Hotel::findOrFail($id);
-    //     if (File::exists(public_path($hotel->image))) {
-    //         File::delete(public_path($hotel->image));  // delete the old image first if exists.  // إذا كانت الصورة موجودة في المجلد التي محتويها على صورة جديدة، فإننا نحذف الصورة القديمة.  // حذف الصورة القديمة الموجودة في المجلد التي محتويها على صورة جديدة.  // حذف الصورة القديمة الموجودة في المجلد التي محتويها على صورة جديدة.  // حذف الصور
-    //     }
-    //     $hotel->delete();
-
-    //     return response(['status' => 'success', 'message' => 'Deleted successfully']);
-    // }
 }

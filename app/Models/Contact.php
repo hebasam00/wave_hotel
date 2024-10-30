@@ -9,9 +9,5 @@ class Contact extends Model
 {
     use HasFactory;
 
-    // الحقول القابلة للتعبئة بشكل جماعي
     protected $fillable = ['name', 'email', 'message'];
-
-    // إذا كنت لا تحتاج لتواريخ الإنشاء والتحديث، يمكنك تعطيلها هكذا:
-    // public $timestamps = false;
 }
