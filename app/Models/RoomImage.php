@@ -9,8 +9,12 @@ class RoomImage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['room_id', 'image_path'];
+    protected $fillable = [
+        'room_id',
+        'image_path',
+    ];
 
+    // إذا كنت تريد تحديد العلاقة مع نموذج الغرفة
     public function room()
     {
         return $this->belongsTo(Room::class);

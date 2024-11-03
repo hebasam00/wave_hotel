@@ -29,8 +29,9 @@ class ContactController extends Controller
         ]);
 
         Contact::create($validatedData);
+        toastr()->success('Your message has been sent successfully!');
 
-        return redirect()->back()->with('success', 'Your message has been sent successfully!');
+        return redirect()->back();
     }
 
     //---------------------------------------- DELETE CONTACT RECORD -------------------------------------//
@@ -38,7 +39,8 @@ class ContactController extends Controller
     {
         $contact = Contact::findOrFail($id);
         $contact->delete();
+        toastr()->success('The message has been deleted successfully!');
 
-        return redirect()->back()->with('success', 'The message has been deleted successfully!');
+        return redirect()->back();
     }
 }

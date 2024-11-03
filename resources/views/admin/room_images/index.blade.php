@@ -1,59 +1,34 @@
 @extends('admin.master', ['title' => 'Room Images'])
-
 @section('content')
+    <div class="col-lg-12 mt-4 mb-4 order-0">
+        <div class="card">
+            <div class="card-body">
+                <h5>Images for Room {{ $roomId }}</h5>
+                <form method="POST" action="{{ route('admin.roomImages.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="room_id" value="{{ $roomId }}">
 
-<div class="col-md-8 container mt-4">
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input type="file" class="form-control" name="image" accept="image/*" required>
+                    </div>
 
-    <div class="card mb-4">
-
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Room Images</h5>
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-        </div>
-
-        <div class="card-body">
-
-            <!-- Form to add new image -->
-            <form method="POST" action="{{ route('admin.store.image') }}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="room_id" value="{{ $roomId }}"> <!-- Hidden field to store room ID -->
-
-                <div class="mb-3">
-                    <label class="form-label">Add New Image</label>
-                    <input type="file" class="form-control" name="image"  required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Add Image</button>
-            </form>
-
-            <hr> <!-- Divider between form and images -->
-
-            <div class="row mt-4">
-                @if($roomImages->isEmpty())
-                    <p>No images available for this room.</p>
-                @else
-                    @foreach($roomImages as $image)
-                        <div class="col-md-4">
-                            <div class="card mb-4">
-                                <img src="{{ asset($image->image_path) }}" class="card-img-top" alt="Room Image">
-                                <div class="card-body">
-
-                                        <a href="{{ route('room.images.destroy', ['id' => $image->id]) }}" type="submit" class="btn btn-danger delete-item">Delete Image</a>
-                                </div>
-                            </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>                <div class="row">
+                    @if ($images->isEmpty())
+                        <div class="col-12">
+                            <p>No images found for this room.</p>
                         </div>
-                    @endforeach
-                @endif
+                    @else
+                        @foreach ($images as $image)
+                            <div class="col-md-3 mb-3">
+                                <img src="{{ asset($image->image_path) }}" alt="Room Image" class="img-fluid">
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <a href="{{ route('admin.rooms') }}" class="btn btn-secondary mt-4">Back to Rooms</a>
             </div>
-
-            {{ $roomImages->links() }} <!-- Pagination links -->
-
         </div>
-
     </div>
-
-</div>
-
 @endsection

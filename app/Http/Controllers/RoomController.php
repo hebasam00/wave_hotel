@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Hotel;
 use App\Models\Room;
@@ -86,4 +86,34 @@ class RoomController extends Controller
 
         return response(['status' => 'success', 'message' => 'Deleted successfully']);
     }
+
+
+
+    public function showByType($type)
+    {
+        // جلب الغرف المتاحة بناءً على نوع الغرفة
+        $rooms = Room::where('room_type', $type)->where('available', true)->get();
+
+
+        return view('rooms.showByType', compact('rooms', 'type'));
+    }
+    public function book($id)
+    {
+        $room = Room::findOrFail($id);
+        $checkin = request('checkin');
+        $checkout = request('checkout');
+        $numberOfNights = Carbon::parse($checkout)->diffInDays(Carbon::parse($checkin));
+        $totalPrice = $room->price_per_night * $numberOfNights;
+
+        return view('frontend.book', compact('room', 'checkin', 'checkout', 'numberOfNights', 'totalPrice'));
+    }
+
+    public function confirmBooking(Request $request)
+    {
+        // هنا يمكنك تنفيذ عمليات الحجز (مثل تخزين المعلومات في قاعدة البيانات)
+
+        return back()->with('success', 'Booking confirmed successfully!');
+    }
+
+
 }

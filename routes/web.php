@@ -6,8 +6,32 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomImageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\RoomController; // تأكد من استخدام الـ Controller المناسب
-use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BookingController;
+
+Route::post('/rooms/confirm', [BookingController::class, 'store'])->name('rooms.confirm');
+
+// Route لعرض صفحة الحجز
+Route::get('/rooms/book/{id}', [RoomController::class, 'book'])->name('rooms.book');
+
+// Route لتأكيد الحجز
+
+Route::get('/rooms/{roomId}/images', [RoomImageController::class, 'index'])->name('room.images.index');
+
+// مسار لعرض الغرف حسب النوع
+Route::get('/rooms/{type}', [RoomController::class, 'showByType'])->name('rooms.showByType');
+
+// مسار لعرض نموذج الحجز للغرفة بناءً على رقم الغرفة
+Route::get('/booking/{roomId}', [BookingController::class, 'showBookingForm'])->name('booking.form');
+
+// مسار لإرسال بيانات الحجز (POST)
+Route::post('/booking', [BookingController::class, 'processBooking'])->name('booking.process');
+
+Route::get('/rooms/{type}', [RoomController::class, 'showRoomsByType'])->name('rooms.type');
+Route::get('/book/{room}', [BookingController::class, 'showBookingForm'])->name('booking.form');
+Route::get('/rooms/{type}', [RoomController::class, 'showByType'])->name('rooms.showByType');
+
+Route::post('/book', [BookingController::class, 'store'])->name('booking.store');
 
 // مجموعة من الراوتات للإدارة
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -64,7 +88,7 @@ Route::delete('/admin/bookings/{id}', [BookingController::class, 'destroy'])->na
 // Route to show the booking page
 
 
-Route::get('/rooms/{roomId}/images', [RoomController::class, 'index'])->name('room.images.index');
+// Route::get('/rooms/{roomId}/images', [RoomController::class, 'index'])->name('room.images.index');
 
 
 
@@ -108,7 +132,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy'); // حذف تواصل من المشرف
 
     // إدارة صور الغرف
-    Route::get('/rooms/{roomId}/images', [RoomImageController::class, 'index'])->name('room.images.index');
+    // Route::get('/rooms/{roomId}/images', [RoomImageController::class, 'index'])->name('room.images.index');
     Route::get('/rooms/{roomId}/images/create', [RoomImageController::class, 'create'])->name('room.images.create');
     Route::post('/rooms/images/store', [RoomImageController::class, 'store'])->name('room.images.store');
     Route::delete('/rooms/images/{id}', [RoomImageController::class, 'destroy'])->name('room.images.destroy');

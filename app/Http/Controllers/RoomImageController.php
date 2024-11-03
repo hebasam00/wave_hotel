@@ -11,9 +11,12 @@ class RoomImageController extends Controller
     //---------------------------------------- DISPLAY ROOM IMAGES -------------------------------------//
     public function index($roomId)
     {
-        $roomImages = RoomImage::where('room_id', $roomId)->paginate(10);
-        return view('admin.room_images.index', compact('roomImages', 'roomId'));
+        $images = RoomImage::where('room_id', $roomId)->get();
+
+        return view('admin.room_images.index', compact('images', 'roomId'));
     }
+
+
 
     //---------------------------------------- SHOW CREATE IMAGE FORM -------------------------------------//
     public function create($roomId)
@@ -24,22 +27,28 @@ class RoomImageController extends Controller
     //---------------------------------------- STORE ROOM IMAGE -------------------------------------//
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'room_id' => 'required|exists:rooms,id',
+        $request->validate([
+            'image' => 'required|image|max:2048',
+            'room_id' => 'required|exists:rooms,id', // تأكد من وجود الغرفة
         ]);
 
-        $new = new RoomImage();
+        // حفظ الصورة في المسار المحدد
 
+
+
+        $newimage= new RoomImage();
         // Save the image to the storage directory
         $imageName = time() . '_' . $request->image->getClientOriginalName();
         $request->image->move(public_path('uploads'), $imageName);
-        $new->image_path = '/uploads/' . $imageName;
-        $new->room_id = $request->room_id;
-        $new->save();
+        $newimage->image_path = '/uploads/' . $imageName;
 
-        return back()->withErrors(['image' => 'Failed to upload image']);
+        $newimage->room_id = $request->room_id;
+        $newimage->save();
+
+        return to_route('room.images.index', ['roomId' => $request->room_id])
+            ->with('success', 'Image uploaded successfully.');
     }
+
 
     //---------------------------------------- DELETE ROOM IMAGE -------------------------------------//
     public function destroy(string $id)

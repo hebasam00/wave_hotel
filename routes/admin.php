@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HotelController;
-use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomImageController;
 use App\Http\Controllers\ContactController; // إضافة ContactController
 
 Route::get('/dashbord', [AdminController::class, 'dashbord'])
@@ -41,3 +42,6 @@ Route::delete('/rooms/delete/{id}', [RoomController::class, 'destroy'])->name('d
 Route::get('/admin/contact', [ContactController::class, 'index'])->name('admin.contact');
 Route::delete('/admin/contact/{id}', [ContactController::class, 'destroy'])->name('admin.contact.destroy'); // دالة الحذف
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+Route::post('/roomImages', [RoomImageController::class, 'store'])
+    ->name('roomImages.store');
