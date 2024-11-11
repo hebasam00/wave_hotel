@@ -47,13 +47,16 @@ class HotelController extends Controller
         $newHotel->image = '/uploads/' . $imageName;
 
         $newHotel->save();
-        return redirect()->route('admin.hotels')->with('status', 'Hotel created successfully');
+        toastr()->success('Hotel created successfully');
+
+        return redirect()->route('admin.hotels');
     } // end storeHotel
 
     //---------------------------------------- SHOW EDIT HOTEL FORM -------------------------------------//
     public function update($id)
     {
         $data = Hotel::findOrFail($id);
+
         return view('admin.hotels.update', compact('data'));
     } // end update
 
@@ -87,6 +90,8 @@ class HotelController extends Controller
         }
 
         $hotel->save();
+        toastr()->success('Hotel update successfully');
+
         return redirect()->route('admin.hotels')->with('status', 'Hotel updated successfully');
     } // end submit
 
@@ -98,7 +103,8 @@ class HotelController extends Controller
             File::delete(public_path($hotel->image));
         }
         $hotel->delete();
+        toastr()->success('Deleted successfully');
 
-        return response(['status' => 'success', 'message' => 'Deleted successfully']);
+        return response();
     } // end destroy
 }

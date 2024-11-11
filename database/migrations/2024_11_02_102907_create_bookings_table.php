@@ -18,7 +18,7 @@ class CreateBookingsTable extends Migration
             $table->integer('adults');
             $table->integer('children')->default(0);
             $table->string('room_number');
-            $table->decimal('total_price', 8, 2); // تخزين السعر الكلي مع دقة عشرية
+            $table->decimal('total_price', 8, 2); 
             $table->timestamps();
         });
     }

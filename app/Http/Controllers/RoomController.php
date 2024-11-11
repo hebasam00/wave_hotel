@@ -43,8 +43,9 @@ class RoomController extends Controller
         $newRoom->hotel_id = $request->hotel_id;
 
         $newRoom->save();
+        toastr()->success('Room created successfully');
 
-        return redirect()->route('admin.rooms')->with('status', 'Room created successfully');
+        return redirect()->route('admin.rooms');
     }
 
     //---------------------------------------- SHOW ROOM UPDATE FORM -------------------------------------//
@@ -52,6 +53,7 @@ class RoomController extends Controller
     {
         $data = Room::findOrFail($id);
         $hotels = Hotel::get();
+
         return view('admin.rooms.update', compact('data', 'hotels'));
     }
 
@@ -74,8 +76,9 @@ class RoomController extends Controller
         $room->hotel_id = $request->hotel_id;
 
         $room->save();
+        toastr()->success('Room updated successfully');
 
-        return redirect()->route('admin.rooms')->with('status', 'Room updated successfully');
+        return redirect()->route('admin.rooms');
     }
 
     //---------------------------------------- DELETE ROOM -------------------------------------//
@@ -83,15 +86,15 @@ class RoomController extends Controller
     {
         $room = Room::findOrFail($id);
         $room->delete();
+        toastr()->success('Deleted successfully');
 
-        return response(['status' => 'success', 'message' => 'Deleted successfully']);
+        return response();
     }
 
 
 
     public function showByType($type)
     {
-        // جلب الغرف المتاحة بناءً على نوع الغرفة
         $rooms = Room::where('room_type', $type)->where('available', true)->get();
 
 
@@ -110,9 +113,9 @@ class RoomController extends Controller
 
     public function confirmBooking(Request $request)
     {
-        // هنا يمكنك تنفيذ عمليات الحجز (مثل تخزين المعلومات في قاعدة البيانات)
+        toastr()->success('Booking confirmed successfully!');
 
-        return back()->with('success', 'Booking confirmed successfully!');
+        return back();
     }
 
 

@@ -29,15 +29,14 @@ class RoomImageController extends Controller
     {
         $request->validate([
             'image' => 'required|image|max:2048',
-            'room_id' => 'required|exists:rooms,id', // تأكد من وجود الغرفة
+            'room_id' => 'required|exists:rooms,id', 
         ]);
 
-        // حفظ الصورة في المسار المحدد
+
 
 
 
         $newimage= new RoomImage();
-        // Save the image to the storage directory
         $imageName = time() . '_' . $request->image->getClientOriginalName();
         $request->image->move(public_path('uploads'), $imageName);
         $newimage->image_path = '/uploads/' . $imageName;
@@ -55,7 +54,7 @@ class RoomImageController extends Controller
     {
         $roomImage = RoomImage::findOrFail($id);
         if (File::exists(public_path($roomImage->image_path))) {
-            File::delete(public_path($roomImage->image_path));  // Delete the old image if it exists
+            File::delete(public_path($roomImage->image_path));
         }
         $roomImage->delete();
 

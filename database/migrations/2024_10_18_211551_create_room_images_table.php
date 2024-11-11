@@ -9,8 +9,8 @@ class CreateRoomImagesTable extends Migration
     {
         Schema::create('room_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained()->onDelete('cascade'); // العلاقة مع جدول الغرف
-            $table->string('image_path'); // لحفظ مسار الصورة
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
+            $table->string('image_path'); 
             $table->timestamps();
         });
     }

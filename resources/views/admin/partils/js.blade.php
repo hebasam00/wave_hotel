@@ -32,7 +32,7 @@
 
         $('body').on('click', '.delete-item', function(event) {
             event.preventDefault();
-            let deleteUrl = $(this).attr('href'); // نحصل على رابط الحذف
+            let deleteUrl = $(this).attr('href'); // 
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -44,8 +44,8 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        type: 'DELETE', // طلب الحذف
-                        url: deleteUrl, // نرسل الطلب للـ URL المحدد
+                        type: 'DELETE', //
+                        url: deleteUrl, //
                         success: function(data) {
                             if (data.status === 'success') {
                                 Swal.fire(
@@ -54,11 +54,11 @@
                                     'success'
                                 );
                                 window.location
-                            .reload(); // إعادة تحميل الصفحة بعد النجاح
+                            .reload(); //
                             }
                         },
                         error: function(xhr, status, error) {
-                            console.log(error); // طباعة الخطأ في حال حدوثه
+                            console.log(error); //
                         }
                     });
                 }

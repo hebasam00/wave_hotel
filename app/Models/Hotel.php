@@ -8,5 +8,10 @@ class Hotel extends Model
 {
     protected $fillable = ['name', 'rating', 'location', 'description'];
 
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 
 }
+

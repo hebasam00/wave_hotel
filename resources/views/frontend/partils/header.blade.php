@@ -26,11 +26,15 @@
                                     <a class="nav-link" href="{{ route('contact') }}" style="color: white; font-family: 'Poppins', sans-serif; font-weight: 400;">Contact</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="#gallery" style="color: white; font-family: 'Poppins', sans-serif; font-weight: 400;">
+                                        Gallery
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}" style="color: white; font-family: 'Poppins', sans-serif; font-weight: 400;">Login</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}" style="color: white; font-family: 'Poppins', sans-serif; font-weight: 400;">Register</a>
-                                </li>
+                              
                             </ul>
                         </div>
                     </nav>

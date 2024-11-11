@@ -1,31 +1,35 @@
 @extends('admin.master', ['title' => 'Hotels'])
 @section('hotel-active', 'active')
 @section('content')
+
+    <style>
+        .card {
+            max-width: 100%; /* ضبط العرض الأقصى للبوكس */
+            margin: 20px auto; /* إبعاد البوكس عن الحواف */
+            padding: 20px; /* إضافة مساحة داخلية */
+        }
+    </style>
+
     <div class="col-lg-12 mt-4 mb-4 order-0">
         <div class="card">
             <div class="d-flex align-items-end row">
-
                 <div class="card-body">
-                    <!-- Basic Bootstrap Table -->
                     <div class="card">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-header mb-0">All Hotels</h5>
                             <a href="{{ route('admin.new.hotel') }}" class="btn btn-primary ml-auto">Add New</a>
                         </div>
                         @if (count($data) > 0)
-
                             <div class="table-responsive text-nowrap">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Image</th>
                                             <th>Name</th>
-                                            <th>Raiting</th>
+                                            <th>Rating</th>
                                             <th>Location</th>
                                             <th>Description</th>
-                                            <th>update</th>
-
-
+                                            <th>Update</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
@@ -39,28 +43,19 @@
                                                 <td>
                                                     <a href="{{ route('admin.update.hotel', ['id' => $item->id]) }}"
                                                         class="btn btn-warning">Update</a>
-                                                        <a href="{{ route('admin.delete.hotel', ['id' => $item->id]) }}" class="btn btn-danger delete-item">Delete</a>
-
-
+                                                    <a href="{{ route('admin.delete.hotel', ['id' => $item->id]) }}" class="btn btn-danger delete-item">Delete</a>
                                                 </td>
-
-
-
-
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>
+                        @else
+                            <div style="text-align: center">
+                                <span class="text-danger">No Data</span>
+                            </div>
+                        @endif
                     </div>
-                    <!--/ Basic Bootstrap Table -->
-                @else
-                    <div style="text-align: center">
-                        <span class="text-danger">No Data</span>
-                    </div>
-                    @endif
-
                 </div>
             </div>
         </div>

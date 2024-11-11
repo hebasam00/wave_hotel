@@ -14,9 +14,9 @@ class RoomImage extends Model
         'image_path',
     ];
 
-    // إذا كنت تريد تحديد العلاقة مع نموذج الغرفة
     public function room()
     {
         return $this->belongsTo(Room::class);
     }
+
 }

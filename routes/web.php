@@ -9,6 +9,16 @@ use App\Http\Controllers\RoomController; // تأكد من استخدام الـ 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BookingController;
 
+// routes/web.php
+
+
+Route::get('admin/bookings/{id}/edit', [BookingController::class, 'edit'])->name('admin.edit.booking');
+
+
+
+
+Route::get('/dashboard/bookings', [BookingController::class, 'index'])->name('bookings.index');
+
 Route::post('/rooms/confirm', [BookingController::class, 'store'])->name('rooms.confirm');
 
 // Route لعرض صفحة الحجز

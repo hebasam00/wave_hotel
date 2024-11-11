@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->string('type')->nullable(); // يمكنك تحديد نوع البيانات والقيود حسب الحاجة
+            $table->string('type')->nullable(); 
         });
     }
 

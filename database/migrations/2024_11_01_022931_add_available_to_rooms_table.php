@@ -9,7 +9,7 @@ class AddAvailableToRoomsTable extends Migration
     public function up()
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->boolean('available')->default(true); // أو أي قيمة افتراضية تناسبك
+            $table->boolean('available')->default(true); 
         });
     }
 

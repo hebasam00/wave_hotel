@@ -12,7 +12,7 @@
                     <!-- صندوق الحجز -->
                     <div class="col-md-5">
                         <div id="availabilityBox" class="alert"
-                            style="background-color: rgba(66, 25, 0, 0.8); border: 1px solid rgba(54, 29, 5, 0.8); border-radius: 8px; padding: 15px;">
+                            style="background-color: rgba(65, 46, 33, 0.8); border: 1px solid rgba(31, 17, 5, 0.8); border-radius: 8px; padding: 15px;">
                             <form id="bookingForm" action="{{ route('booking.store') }}" method="POST">                                @csrf
                                 <div class="row">
                                     <div class="col-md-6 mb-2">
@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <button type="button" id="checkAvailabilityBtn" class="btn btn-primary btn-block text-white"
-                                    style="background-color: #992828; border: none; border-radius: 5px;">
+                                    style="background-color: #3b0606; border: none; border-radius: 5px;">
                                     Check availability
                                 </button>
                             </form>
@@ -100,7 +100,7 @@
         font-family: 'Arial', sans-serif; /* تغيير نوع الخط */
         font-size: 1rem; /* تغيير حجم الخط */
         color: #000000; /* لون النص داخل الحقول */
-        background-color: rgba(255, 255, 255, 0.8); /* لون الخلفية مع الشفافية */
+        background-color: rgba(255, 255, 255, 0.575); /* لون الخلفية مع الشفافية */
     }
 
     /* تضييق الحاوية لتنسيق أفضل */
@@ -127,12 +127,12 @@
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-7 ml-auto order-lg-2 position-relative mb-5" data-aos="fade-up">
                     <figure class="img-absolute">
-                        <img src="{{ asset('frontend/images/food-1.jpg') }}" alt="Food Image" class="img-fluid">
+                        <img src="{{ asset('img/Orange Cream Simple Modern Initial W Logo(2).png') }}" alt="Food Image" class="img-fluid">
                     </figure>
                     <img src="{{ asset('frontend/images/img_1.jpg') }}" alt="Image" class="img-fluid rounded">
                 </div>
                 <div class="col-md-12 col-lg-4 order-lg-1" data-aos="fade-up">
-                    <h2 class="heading">Welcome!</h2>
+                    <h2 class="heading" style="color: #5a3721">Welcome!</h2>
                     <p class="mb-4">Located in the heart of the tourist area, our hotel combines modern elegance with
                         authentic hospitality. Whether you're seeking a peaceful retreat or an adventure-filled trip, Wave
                         offers everything you need for an unforgettable stay.</p>
@@ -221,7 +221,7 @@
 
 
     <!---------------------------------- PHOTOS ------------------------------------------>
-    <section class="section slider-section bg-light">
+    <section id="gallery" class="section slider-section bg-light">
         <div class="container">
             <div class="row justify-content-center text-center mb-5">
                 <div class="col-md-7">

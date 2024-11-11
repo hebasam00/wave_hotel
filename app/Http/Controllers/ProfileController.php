@@ -29,8 +29,9 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        toastr()->success('Update successfully');
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit');
     }
 
     //---------------------------------------- DELETE USER ACCOUNT -------------------------------------//
@@ -48,6 +49,7 @@ class ProfileController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        toastr()->success('delete successfully');
 
         return Redirect::to('/');
     }

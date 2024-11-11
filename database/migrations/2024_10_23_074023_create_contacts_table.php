@@ -12,11 +12,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->id();  // لإنشاء حقل معرف فريد
-            $table->string('name');  // حقل لاسم المستخدم
-            $table->string('email');  // حقل لبريد المستخدم
-            $table->text('message');  // حقل لرسالة المستخدم
-            $table->timestamps();  // لإنشاء حقول لتاريخ الإنشاء والتحديث
+            $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->text('message');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contacts');  // لحذف الجدول إذا كان موجودًا
+        Schema::dropIfExists('contacts');
     }
 };

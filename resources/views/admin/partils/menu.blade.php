@@ -1,10 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
+        <!-- Logo -->
         <a href="{{ route('admin.dashbord') }}" class="app-brand-link">
-            <span class="app-brand-logo demo">
-                <!-- SVG logo code هنا -->
-            </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Dashboard</span>
+            <img src="{{ asset('img/Orange Cream Simple Modern Initial W Logo(2).png') }}" alt="Logo" style="width: 40px; height: 40px;">
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -57,9 +55,9 @@
 
         <!-- Booking -->
         <li class="menu-item @yield('booking-active')">
-            <a href="{{ route('admin.bookings') }}" class="menu-link">
+            <a href="{{ route('bookings.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
-                <div data-i18n="Bookings">Bookings</div>
+                <div data-i18n="Bookings">Manage Bookings</div>
             </a>
         </li>
     </ul>
