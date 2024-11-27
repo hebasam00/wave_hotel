@@ -4,9 +4,9 @@
 
     <style>
         .card {
-            max-width: 100%; /* ضبط العرض الأقصى للبوكس */
-            margin: 20px auto; /* إبعاد البوكس عن الحواف */
-            padding: 20px; /* إضافة مساحة داخلية */
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px; 
         }
     </style>
 

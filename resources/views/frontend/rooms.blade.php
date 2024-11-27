@@ -9,7 +9,6 @@
             <!-- Availability Box -->
             <div class="container mt-5">
                 <div class="row">
-                    <!-- صندوق الحجز -->
                     <div class="col-md-5">
                         <div id="availabilityBox" class="alert"
                             style="background-color: rgba(66, 25, 0, 0.8); border: 1px solid rgba(54, 29, 5, 0.8); border-radius: 8px; padding: 15px;">
@@ -58,13 +57,11 @@
                                 </div>
                                 <button type="button" id="checkAvailabilityBtn" class="btn btn-primary btn-block text-white"
                                     style="background-color: #992828; border: none; border-radius: 5px;">
-                                    تحقق من التوافر
-                                </button>
+                                    Check availability                                </button>
                             </form>
                         </div>
                     </div>
 
-                    <!-- الهيروسكشن -->
                     <div class="col-md-7">
                         <div class="hero-section" style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background-color: rgba(255, 255, 255, 0); border-radius: 8px; padding: 20px;">
                             <h1 class="text-center" style="color: #f5f5dc;">A Best Place To Stay</h1>
@@ -86,34 +83,30 @@
 <script>
     document.getElementById('checkAvailabilityBtn').addEventListener('click', function() {
         var roomType = document.getElementById('room_type').value;
-        // إعادة توجيه المستخدم إلى الصفحة المناسبة
         window.location.href = "{{ url('rooms') }}/" + roomType.charAt(0).toUpperCase() + roomType.slice(1);
 
     });
 </script>
 
 <style>
-    /* CSS لتصغير حجم الحقول وتنسيقها */
     .small-input {
-        max-width: 100%; /* اجعل الحقول مناسبة للحجم المطلوب */
+        max-width: 100%;
         border: 1px solid #ffffff;
         border-radius: 5px;
-        font-family: 'Arial', sans-serif; /* تغيير نوع الخط */
-        font-size: 1rem; /* تغيير حجم الخط */
-        color: #000000; /* لون النص داخل الحقول */
-        background-color: rgba(255, 255, 255, 0.8); /* لون الخلفية مع الشفافية */
+        font-family: 'Arial', sans-serif;
+        font-size: 1rem;
+        color: #000000;
+        background-color: rgba(255, 255, 255, 0.8);
     }
 
-    /* تضييق الحاوية لتنسيق أفضل */
     #availabilityBox {
-        max-width: 400px; /* تم تصغير العرض */
-        padding: 15px; /* تم تقليل الحواف الداخلية */
-        margin: auto; /* مركزية */
-    }
+        max-width: 400px;
+        padding: 15px;
+        margin: auto;
 
-    /* جعل الخط في العنوان أصغر */
+
     .alert-heading {
-        font-size: 1.2rem; /* حجم الخط */
+        font-size: 1.2rem;
     }
 </style>
 <section class="section">
@@ -176,7 +169,6 @@
     <div class="container">
         <div class="row check-availabilty" id="next">
             <div class="block-32" data-aos="fade-up" data-aos-offset="-200">
-                <!-- يمكنك إضافة محتوى آخر هنا إذا لزم الأمر -->
             </div>
         </div>
     </div>

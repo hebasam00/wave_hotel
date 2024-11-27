@@ -29,7 +29,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // VALIDATE INPUT DATA
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'nullable|string|max:255',
@@ -39,7 +38,6 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        // UPDATE USER WITH VALIDATED DATA
         $user->update($request->all());
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
@@ -75,7 +73,6 @@ class UserController extends Controller
             'password' => 'nullable|min:6|confirmed',
         ]);
 
-        // UPDATE USER DATA
         $user->name = $request->name;
         $user->username = $request->username;
         $user->phone = $request->phone;

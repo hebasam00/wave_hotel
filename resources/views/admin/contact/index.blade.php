@@ -11,14 +11,12 @@
                             <h5 class="card-header mb-0">Contacts Section</h5>
                         </div>
 
-                        <!-- عرض رسالة نجاح إذا تم حذف رسالة -->
                         @if(session('success'))
                             <div class="alert alert-success m-3">
                                 {{ session('success') }}
                             </div>
                         @endif
 
-                        <!-- جدول عرض بيانات الاتصال -->
                         @if (count($contacts) > 0)
                             <div class="table-responsive text-nowrap m-3">
                                 <table class="table">
